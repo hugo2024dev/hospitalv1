@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre', 100);
             $table->integer('digitos')->unsigned();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

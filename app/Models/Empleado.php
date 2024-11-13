@@ -12,4 +12,9 @@ class Empleado extends Model
     protected $casts = [
         'fecha_nacimiento' => 'date',
     ];
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class);
+    }
 }
