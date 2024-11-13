@@ -14,8 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            EspecialidadSeeder::class,
+            InitSeeder::class,
             RolesTableSeeder::class,
             UsersTableSeeder::class,
+            EmpleadosSeeder::class,
+            PacientesSeeder::class,
         ]);
 
         Artisan::call('shield:generate --all');
