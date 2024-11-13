@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Artisan::call('shield:generate --all');
+        $this->call([
+            GiveBasicPermissionsSeeder::class,
+        ]);
     }
 }

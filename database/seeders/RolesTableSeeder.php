@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ["super_admin", "admin", "author"];
+        $roles = ["super_admin", "admin"];
 
         foreach ($roles as $key => $role) {
             DB::table('roles')->insert(
@@ -24,5 +26,8 @@ class RolesTableSeeder extends Seeder
                 ]
             );
         }
+
+        $admin = Role::findByName('admin');
+        $admin->syncPermissions(Permission::pluck('id'));
     }
 }
