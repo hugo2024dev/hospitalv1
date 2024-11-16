@@ -12,6 +12,8 @@ export default {
     theme: {
         extend: {
             colors: {
+                white: '#F3F4F6',
+                platinum: '#E8E9EB',
                 secondary: {
                     50: "rgba(var(--secondary-50), <alpha-value>)",
                     100: "rgba(var(--secondary-100), <alpha-value>)",
@@ -24,6 +26,9 @@ export default {
                     800: "rgba(var(--secondary-800), <alpha-value>)",
                     900: "rgba(var(--secondary-900), <alpha-value>)",
                 },
+                transitionTimingFunction: {
+                    'ease-smooth': 'cubic-bezier(0.08, 0.52, 0.52, 1)',
+                }
             },
         },
     },

@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('programacions', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            // $table->string('nombre');
             $table->tinyInteger('cantidad_citas')->unsigned();
-            $table->date('fecha');
+            $table->date('fecha')->unique();
             $table->time('hora_inicio');
             $table->time('hora_fin');
 

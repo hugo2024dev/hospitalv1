@@ -11,6 +11,38 @@
     @apply read-only:cursor-not-allowed read-only:opacity-50 !important;
 }
 
+.fi-fo-field-wrp.report-hidden-label > div.grid.gap-y-2 > div.flex.items-center {
+    @apply hidden;
+}
+
+.fi-fo-field-wrp.report-hidden-label {
+    @apply lg:mt-8;
+}
+
+.choices__list.choices__list--single {
+    @apply w-full;
+}
+
+.choices:focus-visible {
+    outline: none;
+}
+
+.choices__group {
+    @apply text-gray-900 dark:text-white font-semibold;
+}
+
+.choices[data-type="select-one"] .choices__inner {
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    min-height: 2.25rem;
+    box-sizing: border-box;
+}
+
+.choices:not(.is-disabled) .choices__item {
+    cursor: pointer;
+}
+
 /* SIDEBAR */
 .fi-sidebar.fi-sidebar-open { @apply lg:!w-1/5 2xl:!w-1/5; }
 
@@ -155,6 +187,72 @@
 
 .table-repeater-header-column {
     @apply ps-3 pe-3 font-semibold bg-gray-200 dark:bg-gray-800 rounded-none !important;
+}
+/* table */
+.es-report-card {
+    @apply md:!grid-cols-2;
+
+    .fi-fo-component-ctn {
+        @apply divide-y divide-gray-200 dark:divide-white/10 !gap-0;
+    }
+
+    .fi-section-content-ctn {
+        @apply md:!col-span-1;
+    }
+
+    .fi-section-content {
+        @apply !p-0;
+    }
+}
+
+.fi-modal.fi-width-screen {
+    .fi-modal-header {
+        @apply xl:px-80;
+
+        .absolute.end-4.top-4 {
+            @apply xl:end-80;
+        }
+    }
+
+    .fi-modal-content {
+        @apply xl:px-80;
+    }
+
+    .fi-modal-footer {
+        @apply xl:px-80;
+    }
+}
+
+.es-table__header-ctn, .es-table__footer-ctn {
+    @apply divide-y divide-gray-200 dark:divide-white/10 min-h-12;
+}
+
+.es-table .es-table__rowgroup td:first-child {
+    padding-left: 3rem;
+}
+
+.es-table .es-table__rowgroup .es-table__row > td:nth-child(2) {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.es-table .es-table__rowgroup .es-table__row > td:nth-child(3) {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.es-table .es-table__rowgroup .es-table__row > td:nth-child(4) {
+    white-space: nowrap;
+}
+
+.es-table .es-table__rowgroup .es-table__row > td:last-child {
+    padding-right: 3rem;
+}
+
+.fi-ta-empty-state-icon-ctn {
+    @apply bg-platinum;
 }
 
 /*BACKGROUND*/

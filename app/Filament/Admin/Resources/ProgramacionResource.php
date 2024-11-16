@@ -24,27 +24,27 @@ class ProgramacionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nombre')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\DatePicker::make('fecha')
+                    ->unique(ignoreRecord: true)
+                    ->minDate(fn(string $operation, ?Programacion $programacion) => $operation === 'create' ? now()->startOfDay() : $programacion->fecha->startOfDay())
+                    ->required(),
+                Forms\Components\TimePicker::make('hora_inicio')
+                    ->required(),
+                Forms\Components\TimePicker::make('hora_fin')
+                    ->required(),
+                Forms\Components\Select::make('empleado_id')
+                    ->relationship('empleado', 'nombres')
+                    ->required(),
+                Forms\Components\Select::make('consultorio_id')
+                    ->relationship('consultorio', 'nombre')
+                    ->required(),
+                Forms\Components\Select::make('especialidad_id')
+                    ->relationship('especialidad', 'nombre')
+                    ->required(),
                 Forms\Components\TextInput::make('cantidad_citas')
                     ->required()
                     ->numeric(),
-                Forms\Components\DatePicker::make('fecha')
-                    ->required(),
-                Forms\Components\TextInput::make('hora_inicio')
-                    ->required(),
-                Forms\Components\TextInput::make('hora_fin')
-                    ->required(),
-                Forms\Components\TextInput::make('empleado_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('consultorio_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('especialidad_id')
-                    ->required()
-                    ->numeric(),
+
             ]);
     }
 
@@ -52,25 +52,29 @@ class ProgramacionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nombre')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cantidad_citas')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('fecha')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('hora_inicio'),
-                Tables\Columns\TextColumn::make('hora_fin'),
-                Tables\Columns\TextColumn::make('empleado_id')
+                Tables\Columns\TextColumn::make('empleado.nombres')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('consultorio_id')
+                Tables\Columns\TextColumn::make('consultorio.nombre')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('especialidad_id')
+                Tables\Columns\TextColumn::make('especialidad.nombre')
                     ->numeric()
                     ->sortable(),
+                // Tables\Columns\TextColumn::make('nombre')
+                //     ->wrap()
+                //     ->searchable(),
+                Tables\Columns\TextColumn::make('cantidad_citas')
+                    ->label('N° de citas')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('hora_inicio')
+                    ->toggleable(true),
+                Tables\Columns\TextColumn::make('hora_fin')
+                    ->toggleable(true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

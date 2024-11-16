@@ -13,6 +13,6 @@ class ConsultorioSeeder extends Seeder
      */
     public function run(): void
     {
-        Consultorio::factory()->create();
+        Consultorio::factory(20)->create();
     }
 }
