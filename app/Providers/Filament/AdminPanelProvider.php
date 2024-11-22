@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('')
             ->login(Login::class)
             ->globalSearch(false)
             ->maxContentWidth(MaxWidth::Full)
