@@ -16,6 +16,10 @@ return new class extends Migration {
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->foreignId('programacion_id')->constrained()->cascadeOnDelete();
+            $table->string('estado', 100);
+            $table->foreignId('paciente_id')->nullable()->constrained();
+            $table->uuid('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
