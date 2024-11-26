@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->integer('numero_cita')->unsigned();
-            $table->date('fecha');
-            $table->time('hora');
+            $table->integer('numero_orden')->unsigned();
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
+            $table->foreignId('programacion_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
