@@ -12,11 +12,10 @@ return new class extends Migration {
     {
         Schema::create('programacions', function (Blueprint $table) {
             $table->id();
-            // $table->string('nombre');
             $table->tinyInteger('cantidad_citas')->unsigned();
+            $table->tinyInteger('duracion_cita')->unsigned();
             $table->date('fecha')->unique();
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+            $table->string('turno', 20);
 
             $table->foreignId('empleado_id')->constrained();
             $table->foreignId('consultorio_id')->constrained();
