@@ -17,6 +17,8 @@ class ProgramacionResource extends Resource
 {
     protected static ?string $model = Programacion::class;
     protected static ?string $pluralModelLabel = 'Programaciones';
+    // protected static ?string $navigationParentItem = 'testing';
+    protected static ?string $navigationGroup = 'Mantenimiento';
 
     protected static ?string $navigationIcon = 'tabler-calendar-event';
 
@@ -24,14 +26,14 @@ class ProgramacionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('fecha')
-                    ->unique(ignoreRecord: true)
-                    ->minDate(fn(string $operation, ?Programacion $programacion) => $operation === 'create' ? now()->startOfDay() : $programacion->fecha->startOfDay())
-                    ->required(),
-                Forms\Components\TimePicker::make('hora_inicio')
-                    ->required(),
-                Forms\Components\TimePicker::make('hora_fin')
-                    ->required(),
+                // Forms\Components\DatePicker::make('fecha')
+                //     ->unique(ignoreRecord: true)
+                //     ->minDate(fn(string $operation, ?Programacion $programacion) => $operation === 'create' ? now()->startOfDay() : $programacion->fecha->startOfDay())
+                //     ->required(),
+                // Forms\Components\TimePicker::make('hora_inicio')
+                //     ->required(),
+                // Forms\Components\TimePicker::make('hora_fin')
+                //     ->required(),
                 Forms\Components\Select::make('empleado_id')
                     ->relationship('empleado', 'nombres')
                     ->required(),
@@ -42,6 +44,9 @@ class ProgramacionResource extends Resource
                     ->relationship('especialidad', 'nombre')
                     ->required(),
                 Forms\Components\TextInput::make('cantidad_citas')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('duracion_cita')
                     ->required()
                     ->numeric(),
 
