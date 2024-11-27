@@ -15,10 +15,8 @@ abstract class CitaState extends State
     public static function config(): StateConfig
     {
         return parent::config()
-            ->default(Registrado::class)
-            ->allowTransition(Registrado::class, Asignado::class)
-            // ->allowTransition(Iniciado::class, Finalizado::class)
-            // ->allowTransition(Finalizado::class, Evaluado::class)
+            ->default(Nuevo::class)
+            ->allowTransition(Nuevo::class, Asignado::class, NuevoToAsignado::class)
         ;
     }
 

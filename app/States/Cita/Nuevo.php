@@ -1,7 +1,7 @@
 <?php
 namespace App\States\Cita;
 
-class Registrado extends CitaState
+class Nuevo extends CitaState
 {
     public static $name = 'registrado';
 
