@@ -36,4 +36,16 @@ class Cita extends Model
         'numero_orden' => 'int',
         'estado' => CitaState::class,
     ];
+
+    public function paciente()
+    {
+        // $this->estado->equa;
+        return $this->belongsTo(Paciente::class);
+    }
+
+    public function programacion()
+    {
+        // $this->estado->equa;
+        return $this->belongsTo(Programacion::class);
+    }
 }
