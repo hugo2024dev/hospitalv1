@@ -11,22 +11,20 @@ use Livewire\Attributes\On;
 
 class CitaCalendarWidget extends CalendarWidget
 {
-    protected bool $dateClickEnabled = true;
+    protected bool $eventClickEnabled = true;
     protected ?string $locale = 'es';
 
     public ?string $especialidad;
     public ?string $medico;
 
-    public function onDateClick(array $info = []): void
+    public function onEventClick(array $info = [], ?string $action = null): void
     {
-        dd($info);
-        // Validate the data
+        // dd($info);
+        $this->dispatch('cita-programacion-selected', $info['event']['extendedProps']['key']);
+        // do something on click
         // $info contains the event data:
-        // $info['date'] - the date clicked on
-        // $info['dateStr'] - the date clicked on as a UTC string
-        // $info['allDay'] - whether the date is an all-day slot
+        // $info['event'] - the event object
         // $info['view'] - the view object
-        // $info['resource'] - the resource object
     }
 
     public function getEvents(array $fetchInfo = []): Collection|array
@@ -36,18 +34,7 @@ class CitaCalendarWidget extends CalendarWidget
             $query->whereEspecialidadId($this->especialidad);
         }
         return [
-            // Chainable object-oriented variant
-            // Event::make()
-            //     ->title('My first event')
-            //     ->start(now()->subHour())
-            //     ->end(now()->addHour()),
-
-            // // Array variant
-            // ['title' => 'My second event', 'start' => today()->addDays(3), 'end' => today()->addDays(3)],
-
-            // Eloquent model implementing the `Eventable` interface
             ...$query->get(),
-            // MyEvent::find(1),
         ];
     }
 
