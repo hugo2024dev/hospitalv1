@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\CitaResource\Pages;
 use App\Enums\Diagnostico\TipoDiagnosticoEnum;
 use App\Filament\Admin\Resources\CitaResource;
 use App\Models\Diagnostico;
+use App\Models\Procedimiento;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Filament\Actions;
@@ -58,6 +59,7 @@ class EditCita extends EditRecord
                                 ->schema([
                                     TableRepeater::make('citaDiagnosticos')
                                         ->hiddenLabel()
+                                        ->addActionLabel('Añadir diagnostico')
                                         ->relationship('citaDiagnosticos')
                                         ->headers([
                                             Header::make('tipo')->markAsRequired()->width('150px'),
@@ -78,7 +80,24 @@ class EditCita extends EditRecord
 
                                 ])->columns(1),
                             Fieldset::make('CPT')
-                                ->schema([])
+                                ->schema([
+                                    TableRepeater::make('citaProcedimientos')
+                                        ->hiddenLabel()
+                                        ->addActionLabel('Añadir procedimiento')
+                                        ->relationship('citaProcedimientos')
+                                        ->headers([
+                                            Header::make('procedimiento')->markAsRequired(),
+                                        ])
+                                        ->schema([
+                                            Select::make('procedimiento_id')
+                                                ->relationship('procedimiento', 'nombre')
+                                                ->getOptionLabelFromRecordUsing(fn(Procedimiento $record) => "{$record->codigo} - {$record->nombre}")
+                                                ->searchable(['codigo', 'nombre'])
+                                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                                ->required()
+
+                                        ])
+                                ])->columns(1)
                         ]),
                     Tabs\Tab::make('Tab 3')
                         ->schema([
