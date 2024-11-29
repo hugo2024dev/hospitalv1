@@ -1,6 +1,6 @@
 <form wire:submit="save">
     <x-filament-panels::page>
-        <x-filament::section>
+        <x-filament::section compact>
             <x-slot name="heading">
                 Datos Generales
             </x-slot>

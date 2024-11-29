@@ -68,6 +68,7 @@ class Programacion extends Model implements Eventable
         return Event::make($this)
             ->title($this->especialidad->nombre)
             ->start($this->fecha_hora_inicio)
-            ->end($this->fecha_hora_inicio);
+            ->end($this->fecha_hora_inicio)
+            ->extendedProp('turno', $this->turno);
     }
 }

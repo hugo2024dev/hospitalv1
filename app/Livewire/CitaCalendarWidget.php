@@ -45,4 +45,13 @@ class CitaCalendarWidget extends CalendarWidget
         $this->medico = $data['medico'];
         $this->refreshRecords();
     }
+
+    public function getEventContent(): null|string|array
+    {
+        // return a blade view
+        return view('calendar.event');
+
+        // return a HtmlString
+        // return new HtmlString('<div>My event</div>');
+    }
 }
