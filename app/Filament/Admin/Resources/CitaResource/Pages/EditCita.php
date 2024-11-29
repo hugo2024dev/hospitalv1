@@ -148,8 +148,56 @@ class EditCita extends EditRecord
                                         ])
 
                                 ])->columns(1),
-                        ]),
+                            Fieldset::make('Rayos X')
+                                ->schema([
+                                    TableRepeater::make('citaRayosxes')
+                                        ->hiddenLabel()
+                                        ->addActionLabel('Añadir Rayos X')
+                                        ->relationship('citaRayosxes')
+                                        ->headers([
+                                            Header::make('Rayos X')->markAsRequired(),
+                                            Header::make('cantidad')->width('40px'),
+                                        ])
+                                        ->schema([
+                                            Select::make('rayosx_id')
+                                                ->relationship('rayosx', 'nombre')
+                                                ->searchable(['nombre'])
+                                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                                ->required(),
+                                            TextInput::make('cantidad')
+                                                ->required()
+                                                ->numeric()
+                                                ->maxValue(99),
+                                        ])
+
+                                ])->columns(1)->columnSpan(1),
+                            Fieldset::make('Ecografia')
+                                ->schema([
+                                    TableRepeater::make('citaEcografias')
+                                        ->hiddenLabel()
+                                        ->addActionLabel('Añadir Ecografia')
+                                        ->relationship('citaEcografias')
+                                        ->headers([
+                                            Header::make('Ecografia')->markAsRequired(),
+                                            Header::make('cantidad')->width('40px'),
+                                        ])
+                                        ->schema([
+                                            Select::make('ecografia_id')
+                                                ->relationship('ecografia', 'nombre')
+                                                ->searchable(['nombre'])
+                                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                                ->required(),
+                                            TextInput::make('cantidad')
+                                                ->required()
+                                                ->numeric()
+                                                ->maxValue(99),
+                                        ])
+
+                                ])->columns(1)->columnSpan(1),
+                        ])->columns(2),
                 ])
         ])->columns(1);
     }
 }
+
+

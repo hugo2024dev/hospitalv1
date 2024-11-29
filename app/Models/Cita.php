@@ -78,6 +78,20 @@ class Cita extends Model
             ->using(CitaMedicamento::class);
     }
 
+    public function rayosxes()
+    {
+        return $this->belongsToMany(Rayosx::class)
+            ->withPivot(['cantidad'])
+            ->using(CitaRayosx::class);
+    }
+
+    public function ecografias()
+    {
+        return $this->belongsToMany(Ecografia::class)
+            ->withPivot(['cantidad'])
+            ->using(CitaEcografia::class);
+    }
+
     //Filament relationship para el repeater
     public function citaDiagnosticos()
     {
@@ -92,6 +106,16 @@ class Cita extends Model
     public function citaMedicamentos()
     {
         return $this->hasMany(CitaMedicamento::class);
+    }
+
+    public function citaRayosxes()
+    {
+        return $this->hasMany(CitaRayosx::class);
+    }
+
+    public function citaEcografias()
+    {
+        return $this->hasMany(CitaEcografia::class);
     }
 
     public function scopeAsignados(Builder $query): void

@@ -1,0 +1,18 @@
+INSERT INTO ecografias (nombre, descripcion, precio) VALUES
+	('Ecografía Abdominal Total', 'Evaluación de órganos abdominales (hígado, riñones, páncreas, etc.).', '120'),
+	('Ecografía Obstétrica', 'Control del embarazo y desarrollo fetal.', '100'),
+	('Ecografía Transvaginal', 'Evaluación detallada de útero y ovarios.', '130'),
+	('Ecografía Pélvica', 'Diagnóstico de estructuras pélvicas (vejiga, útero, ovarios).', '110'),
+	('Ecografía Renal y de Vías Urinarias', 'Estudio de riñones y vejiga.', '100'),
+	('Ecografía Mamaria', 'Evaluación de lesiones o alteraciones en las mamas.', '150'),
+	('Ecografía Prostática', 'Estudio de la próstata por vía abdominal o transrectal.', '140'),
+	('Ecografía de Partes Blandas', 'Evaluación de tejidos superficiales (tumores, quistes).', '90'),
+	('Ecografía Doppler Venoso/Arterial', 'Análisis de flujo sanguíneo en venas o arterias.', '200'),
+	('Ecografía Hepática y de Vías Biliares', 'Evaluación del hígado y la vesícula biliar.', '120'),
+	('Ecografía de Tiroides', 'Estudio de la glándula tiroides.', '100'),
+	('Ecografía Testicular', 'Diagnóstico de patologías en los testículos.', '110'),
+	('Ecografía Musculoesquelética', 'Evaluación de músculos, tendones y articulaciones.', '150'),
+	('Ecografía Cardíaca (Ecocardiografía)', 'Evaluación estructural y funcional del corazón.', '250'),
+	('Paquete Materno Infantil', 'Ecografía obstétrica + ecografía pélvica.', '180'),
+	('Paquete Salud Integral', 'Ecografía abdominal total + ecografía renal.', '200'),
+	('Paquete Cardiovascular', 'Ecocardiografía + Doppler arterial.', '400');

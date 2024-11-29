@@ -18,6 +18,8 @@ class InitSeeder extends Seeder
         $medicamentos = base_path('database/sql/medicamentos.sql');
         $procedimientos = base_path('database/sql/procedimientos.sql');
         $farmacia = base_path('database/sql/farmacia.sql');
+        $rayosx = base_path('database/sql/rayosx.sql');
+        $ecografias = base_path('database/sql/ecografias.sql');
         if (file_exists($diagnosticos)) {
             $sql = file_get_contents($diagnosticos);
             \DB::unprepared($sql);
@@ -35,6 +37,16 @@ class InitSeeder extends Seeder
 
         if (file_exists($farmacia)) {
             $sql = file_get_contents($farmacia);
+            \DB::unprepared($sql);
+        }
+
+        if (file_exists($rayosx)) {
+            $sql = file_get_contents($rayosx);
+            \DB::unprepared($sql);
+        }
+
+        if (file_exists($ecografias)) {
+            $sql = file_get_contents($ecografias);
             \DB::unprepared($sql);
         }
     }
