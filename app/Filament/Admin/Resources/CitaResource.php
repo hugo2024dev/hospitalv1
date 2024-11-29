@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -65,6 +66,10 @@ class CitaResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('hora_inicio'),
                 Tables\Columns\TextColumn::make('hora_fin'),
+                IconColumn::make('hora_fin')
+                    ->label('¿Triaje?')
+                    ->color(fn(Cita $record): string => isset ($record->triaje) ? 'success' : 'danger')
+                    ->icon(fn(Cita $record): string => isset ($record->triaje) ? 'tabler-check' : 'tabler-x'),
                 Tables\Columns\TextColumn::make('estado')
                     ->badge()
                     ->color(fn(Cita $record) => $record->estado->color())
