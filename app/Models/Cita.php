@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\States\Cita\Asignado;
 use App\States\Cita\CitaState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\ModelStates\HasStates;
 
 class Cita extends Model
@@ -47,5 +49,13 @@ class Cita extends Model
     {
         // $this->estado->equa;
         return $this->belongsTo(Programacion::class);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeAsignados(Builder $query): void
+    {
+        $query->where('estado', (new Asignado($this)));
     }
 }

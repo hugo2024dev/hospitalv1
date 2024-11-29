@@ -3,7 +3,7 @@ namespace App\States\Cita;
 
 class Nuevo extends CitaState
 {
-    public static $name = 'registrado';
+    public static $name = 'nuevo';
 
     public function color(): string
     {
@@ -12,6 +12,6 @@ class Nuevo extends CitaState
 
     public function display(): string
     {
-        return 'Registrado';
+        return 'Nuevo';
     }
 }
