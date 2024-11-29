@@ -8,7 +8,10 @@ use App\Models\Cita;
 use App\States\Cita\Asignado;
 use App\States\Cita\Nuevo;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -69,7 +72,39 @@ class CitaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('triaje'),
+                Tables\Actions\Action::make('triaje')
+                    ->icon('tabler-activity-heartbeat')
+                    ->hiddenLabel()
+                    ->tooltip('Triaje')
+                    ->fillForm(fn(Cita $record): array => $record->triaje ? $record->triaje->toArray() : [])
+                    ->form([
+                        Group::make()
+                            ->schema([
+                                TextInput::make('peso')
+                                    ->numeric()
+                                    ->suffix('.gr'),
+                                TextInput::make('talla')
+                                    ->numeric()
+                                    ->suffix('m'),
+                                TextInput::make('presion_arterial')
+                                    ->numeric()
+                                    ->suffix('nose'),
+                            ])
+                            ->columns(2)
+                    ])
+                    ->modalSubmitActionLabel('Guardar')
+                    ->action(function (array $data, Cita $record): void {
+                        if (isset($record->triaje)) {
+                            $record->triaje()->update($data);
+                        } else {
+                            $record->triaje()->create($data);
+
+                        }
+                        Notification::make()
+                            ->title('Triaje registrado correctamente.')
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

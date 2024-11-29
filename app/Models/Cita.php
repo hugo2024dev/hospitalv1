@@ -41,19 +41,19 @@ class Cita extends Model
 
     public function paciente()
     {
-        // $this->estado->equa;
         return $this->belongsTo(Paciente::class);
     }
 
     public function programacion()
     {
-        // $this->estado->equa;
         return $this->belongsTo(Programacion::class);
     }
 
-    /**
-     * Scope a query to only include popular users.
-     */
+    public function triaje()
+    {
+        return $this->hasOne(Triaje::class);
+    }
+
     public function scopeAsignados(Builder $query): void
     {
         $query->where('estado', (new Asignado($this)));
