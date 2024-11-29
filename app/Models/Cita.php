@@ -54,6 +54,11 @@ class Cita extends Model
         return $this->hasOne(Triaje::class);
     }
 
+    public function anamnesis()
+    {
+        return $this->hasOne(Anamnesis::class);
+    }
+
     public function scopeAsignados(Builder $query): void
     {
         $query->where('estado', (new Asignado($this)));
