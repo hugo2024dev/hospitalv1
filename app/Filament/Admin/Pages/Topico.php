@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Pages;
 
 use App\Models\Cita;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -54,15 +55,35 @@ class Topico extends Page implements HasTable
                     ->form([
                         Group::make()
                             ->schema([
-                                TextInput::make('peso')
-                                    ->numeric()
-                                    ->suffix('.gr'),
-                                TextInput::make('talla')
-                                    ->numeric()
-                                    ->suffix('m'),
-                                TextInput::make('presion_arterial')
-                                    ->numeric()
-                                    ->suffix('nose'),
+                                Fieldset::make('Signos Vitales')
+                                    ->schema([
+                                        TextInput::make('temperatura')
+                                            ->numeric()
+                                            ->suffix('°C'),
+                                        TextInput::make('presion_arterial')
+                                            ->suffix('xmmHg'),
+                                        TextInput::make('saturacion')
+                                            ->numeric()
+                                            ->suffix('%'),
+                                        TextInput::make('frecuencia_cardiaca')
+                                            ->numeric()
+                                            ->suffix('x min'),
+                                        TextInput::make('frecuencia_respiratoria')
+                                            ->numeric()
+                                            ->suffix('x min'),
+                                    ])->columns(3),
+                                Fieldset::make('Datos antropométricos')
+                                    ->schema([
+                                        TextInput::make('peso')
+                                            ->numeric()
+                                            ->suffix('Kg'),
+                                        TextInput::make('talla')
+                                            ->numeric()
+                                            ->suffix('m.'),
+                                        TextInput::make('perimetro_abdominal')
+                                            ->numeric()
+                                            ->suffix('cm.'),
+                                    ])->columns(3)
                             ])
                             ->columns(2)
                     ])

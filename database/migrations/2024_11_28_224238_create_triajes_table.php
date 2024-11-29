@@ -12,9 +12,14 @@ return new class extends Migration {
     {
         Schema::create('triajes', function (Blueprint $table) {
             $table->id();
+            $table->float('temperatura');
+            $table->string('presion_arterial');
+            $table->string('saturacion');
+            $table->float('frecuencia_cardiaca');
+            $table->float('frecuencia_respiratoria');
             $table->float('peso');
             $table->float('talla');
-            $table->float('presion_arterial');
+            $table->float('perimetro_abdominal');
             $table->foreignId('cita_id')->unique()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
