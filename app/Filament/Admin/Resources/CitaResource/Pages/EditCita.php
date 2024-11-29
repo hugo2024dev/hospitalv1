@@ -99,9 +99,10 @@ class EditCita extends EditRecord
                                         ])
                                 ])->columns(1)
                         ]),
-                    Tabs\Tab::make('Tab 3')
+                    Tabs\Tab::make('Ordenes Médicas')
                         ->schema([
-                            // ...
+                            Fieldset::make('Farmacia')
+                                ->schema([])
                         ]),
                 ])
         ])->columns(1);
