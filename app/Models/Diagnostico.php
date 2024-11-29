@@ -11,4 +11,9 @@ class Diagnostico extends Model
 
     public $timestamps = false;
     protected $fillable = ['codigo', 'nombre'];
+
+    public function citas()
+    {
+        return $this->belongsToMany(Cita::class)->withPivot(['tipo_diagnostico']);
+    }
 }

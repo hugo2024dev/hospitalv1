@@ -59,6 +59,17 @@ class Cita extends Model
         return $this->hasOne(Anamnesis::class);
     }
 
+    public function diagnosticos()
+    {
+        return $this->belongsToMany(Diagnostico::class)->withPivot(['tipo_diagnostico']);
+    }
+
+    //Filament relationship para el repeater
+    public function citaDiagnosticos()
+    {
+        return $this->hasMany(CitaDiagnostico::class);
+    }
+
     public function scopeAsignados(Builder $query): void
     {
         $query->where('estado', (new Asignado($this)));
