@@ -58,11 +58,13 @@ class CitaResource extends Resource
                 Tables\Columns\TextColumn::make('numero_orden')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('paciente.numero_documento')
+                    ->label('N° Documento')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('paciente.nombres')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('hora_inicio'),
                 Tables\Columns\TextColumn::make('hora_fin'),
-                // Tables\Columns\TextColumn::make('programacion_id')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('estado')
                     ->badge()
                     ->color(fn(Cita $record) => $record->estado->color())
@@ -72,44 +74,11 @@ class CitaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('triaje')
-                    ->icon('tabler-activity-heartbeat')
-                    ->hiddenLabel()
-                    ->tooltip('Triaje')
-                    ->fillForm(fn(Cita $record): array => $record->triaje ? $record->triaje->toArray() : [])
-                    ->form([
-                        Group::make()
-                            ->schema([
-                                TextInput::make('peso')
-                                    ->numeric()
-                                    ->suffix('.gr'),
-                                TextInput::make('talla')
-                                    ->numeric()
-                                    ->suffix('m'),
-                                TextInput::make('presion_arterial')
-                                    ->numeric()
-                                    ->suffix('nose'),
-                            ])
-                            ->columns(2)
-                    ])
-                    ->modalSubmitActionLabel('Guardar')
-                    ->action(function (array $data, Cita $record): void {
-                        if (isset($record->triaje)) {
-                            $record->triaje()->update($data);
-                        } else {
-                            $record->triaje()->create($data);
-
-                        }
-                        Notification::make()
-                            ->title('Triaje registrado correctamente.')
-                            ->success()
-                            ->send();
-                    }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
