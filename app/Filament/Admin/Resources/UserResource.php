@@ -48,17 +48,14 @@ class UserResource extends Resource
                                     ->collection('avatars')
                                     ->alignCenter()
                                     ->columnSpanFull(),
+                                Forms\Components\Select::make('empleado')
+                                    ->relationship('empleado', 'nombres')
+                                    ->required(),
                                 Forms\Components\TextInput::make('username')
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('email')
                                     ->email()
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('firstname')
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('lastname')
                                     ->required()
                                     ->maxLength(255),
                             ]),

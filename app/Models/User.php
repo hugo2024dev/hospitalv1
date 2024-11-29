@@ -32,9 +32,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     protected $fillable = [
         'username',
         'email',
-        'firstname',
-        'lastname',
+        // 'firstname',
+        // 'lastname',
         'password',
+        'empleado_id',
     ];
 
     /**
@@ -59,7 +60,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
 
     public function getFilamentName(): string
     {
-        return $this->username;
+        return $this->empleado->nombre_completo;
     }
 
     public function canAccessPanel(Panel $panel): bool
@@ -79,7 +80,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     // Define an accessor for the 'name' attribute
     public function getNameAttribute()
     {
-        return "{$this->firstname} {$this->lastname}";
+        return $this->empleado->nombre_completo;
     }
 
     public function isSuperAdmin(): bool
@@ -92,5 +93,12 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
         $this->addMediaConversion('thumb')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    // RELATIONSHIPS:
+
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class);
     }
 }
