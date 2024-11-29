@@ -14,11 +14,11 @@ class InitSeeder extends Seeder
     {
         $this->tipoDocumentos();
 
-        $enfermedads = base_path('database/sql/enfermedads.sql');
+        $diagnosticos = base_path('database/sql/diagnosticos.sql');
         $medicamentos = base_path('database/sql/medicamentos.sql');
         $procedimientos = base_path('database/sql/procedimientos.sql');
-        if (file_exists($enfermedads)) {
-            $sql = file_get_contents($enfermedads);
+        if (file_exists($diagnosticos)) {
+            $sql = file_get_contents($diagnosticos);
             \DB::unprepared($sql);
         }
 
