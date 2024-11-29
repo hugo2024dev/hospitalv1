@@ -43,26 +43,30 @@
 
                                                     <x-filament-tables::cell class="text-center p-2">
                                                         <div @class([
-                                                            'shadow-md rounded-lg p-4',
+                                                            'flex flex-row shadow-md rounded-lg gap-4 items-center justify-center p-2',
                                                             'bg-yellow-300' => $cita->estado->color() === 'warning',
                                                             'bg-gray-300' => $cita->estado->color() === 'gray',
                                                             'bg-green-300' => $cita->estado->color() === 'green',
                                                         ])>
-                                                            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                                                            <p class="font-semibold text-black">
                                                                 N° {{ $cita->numero_orden }}
-                                                            </h3>
-                                                            <p class="text-sm text-gray-600">
-                                                                Paciente
-                                                                :{{ $cita->paciente?->nombres ?? 'No asignado' }}
                                                             </p>
-                                                            <div class="mt-3">
-                                                                <x-filament::button
+                                                            @if ($cita->paciente)
+                                                                <p class="text-sm text-black">
+                                                                    Paciente
+                                                                    :{{ $cita->paciente?->nombres ?? 'No asignado' }}
+                                                                </p>
+                                                            @endif
+                                                            <div class="justify-self-end">
+                                                                <x-filament::icon-button icon="tabler-user-plus"
+                                                                    color="danger" label="Asignar paciente"
+                                                                    tooltip="Asignar paciente"
                                                                     wire:click="openModal({{ $cita->id }})"
                                                                     @class([
                                                                         'hidden' => !$cita->estado->equals(App\States\Cita\Nuevo::class),
                                                                     ])>
-                                                                    Asignar paciente
-                                                                </x-filament::button>
+
+                                                                </x-filament::icon-button>
                                                             </div>
                                                         </div>
                                                     </x-filament-tables::cell>
