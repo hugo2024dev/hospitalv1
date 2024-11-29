@@ -71,6 +71,13 @@ class Cita extends Model
         return $this->belongsToMany(Procedimiento::class)->using(CitaProcedimiento::class);
     }
 
+    public function medicamentos()
+    {
+        return $this->belongsToMany(Medicamento::class)
+            ->withPivot(['cantidad', 'dosis_id', 'unidad_id', 'frecuencia_id', 'via_id', 'dias'])
+            ->using(CitaMedicamento::class);
+    }
+
     //Filament relationship para el repeater
     public function citaDiagnosticos()
     {
@@ -80,6 +87,11 @@ class Cita extends Model
     public function citaProcedimientos()
     {
         return $this->hasMany(CitaProcedimiento::class);
+    }
+
+    public function citaMedicamentos()
+    {
+        return $this->hasMany(CitaMedicamento::class);
     }
 
     public function scopeAsignados(Builder $query): void

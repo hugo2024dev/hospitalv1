@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\CitaResource\Pages;
 use App\Enums\Diagnostico\TipoDiagnosticoEnum;
 use App\Filament\Admin\Resources\CitaResource;
 use App\Models\Diagnostico;
+use App\Models\Medicamento;
 use App\Models\Procedimiento;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
 
@@ -102,7 +104,50 @@ class EditCita extends EditRecord
                     Tabs\Tab::make('Ordenes Médicas')
                         ->schema([
                             Fieldset::make('Farmacia')
-                                ->schema([])
+                                ->schema([
+                                    TableRepeater::make('citaMedicamentos')
+                                        ->hiddenLabel()
+                                        ->addActionLabel('Añadir medicamento')
+                                        ->relationship('citaMedicamentos')
+                                        ->headers([
+                                            Header::make('medicamento')->markAsRequired(),
+                                            Header::make('cantidad')->markAsRequired()->width('100px'),
+                                            Header::make('dosis')->markAsRequired(),
+                                            Header::make('unidad')->markAsRequired(),
+                                            Header::make('frecuencia')->markAsRequired(),
+                                            Header::make('via')->markAsRequired(),
+                                            Header::make('dias')->markAsRequired()->width('100px'),
+                                        ])
+                                        ->schema([
+                                            Select::make('medicamento_id')
+                                                ->relationship('medicamento', 'nombre')
+                                                ->searchable(['nombre'])
+                                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                                ->required(),
+                                            TextInput::make('cantidad')
+                                                ->required()
+                                                ->numeric()
+                                                ->maxValue(99),
+                                            Select::make('dosis_id')
+                                                ->relationship('dosis', 'nombre')
+                                                ->required(),
+                                            Select::make('unidad_id')
+                                                ->relationship('unidad', 'nombre')
+                                                ->required(),
+                                            Select::make('frecuencia_id')
+                                                ->relationship('frecuencia', 'nombre')
+                                                ->required(),
+                                            Select::make('via_id')
+                                                ->relationship('via', 'nombre')
+                                                ->required(),
+                                            TextInput::make('dias')
+                                                ->required()
+                                                ->numeric()
+                                                ->maxValue(99),
+
+                                        ])
+
+                                ])->columns(1),
                         ]),
                 ])
         ])->columns(1);
