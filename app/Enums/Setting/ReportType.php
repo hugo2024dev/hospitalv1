@@ -6,7 +6,8 @@ use Filament\Support\Contracts\HasLabel;
 
 enum ReportType: string implements HasLabel
 {
-    case ORDEN_MEDICA = 'orden-medica-rayosx-pdf';
+    case RAYOSX = 'orden-medica-rayosx-pdf';
+    case ECOGRAFIA = 'orden-medica-ecografia-pdf';
 
     public function getLabel(): ?string
     {

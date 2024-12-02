@@ -26,5 +26,14 @@ Route::get('/pdf/rayosx/{id}', function (string $id) {
         ->filename('orden_medica_rayosx')
         // ->header('components.pdf.header-cita-testigo')
         ->marginTop('100px')
-        ->handle(ReportType::ORDEN_MEDICA, $cita);
+        ->handle(ReportType::RAYOSX, $cita);
 })->middleware(['auth'])->name('cita-rayosx');
+
+Route::get('/pdf/ecografia/{id}', function (string $id) {
+    $cita = Cita::findOrFail($id);
+    return GenerarPdf::make()
+        ->filename('orden_medica_ecografia')
+        // ->header('components.pdf.header-cita-testigo')
+        ->marginTop('100px')
+        ->handle(ReportType::ECOGRAFIA, $cita);
+})->middleware(['auth'])->name('cita-ecografia');

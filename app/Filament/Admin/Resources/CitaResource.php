@@ -80,14 +80,21 @@ class CitaResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-
                     Tables\Actions\Action::make('imprimir')
                         ->visible(fn(Cita $record) => $record->rayosxes->count() !== 0)
                         ->hiddenLabel()
                         ->label('Imprimir Orden Rayos X')
-                        ->tooltip('Imprimir Orden Rayos X')
-                        ->icon('heroicon-o-printer')
-                        ->url(fn(Cita $record): string => route('cita-pdf', [
+                        // ->icon('heroicon-o-printer')
+                        ->url(fn(Cita $record): string => route('cita-rayosx', [
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab(),
+                    Tables\Actions\Action::make('imprimir-ecografia')
+                        ->visible(fn(Cita $record) => $record->ecografias->count() !== 0)
+                        ->hiddenLabel()
+                        ->label('Imprimir Orden Ecografia')
+                        // ->icon('heroicon-o-printer')
+                        ->url(fn(Cita $record): string => route('cita-ecografia', [
                             'id' => $record->id
                         ]))
                         ->openUrlInNewTab(),
