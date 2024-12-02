@@ -1,5 +1,8 @@
 <?php
 
+use App\Actions\GenerarPdf;
+use App\Enums\Setting\ReportType;
+use App\Models\Cita;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::get('/pdf/rayosx/{id}', function (string $id) {
+    $cita = Cita::findOrFail($id);
+    return GenerarPdf::make()
+        ->filename('orden_medica_rayosx')
+        // ->header('components.pdf.header-cita-testigo')
+        ->marginTop('100px')
+        ->handle(ReportType::ORDEN_MEDICA, $cita);
+})->middleware(['auth'])->name('cita-rayosx');

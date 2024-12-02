@@ -79,6 +79,20 @@ class CitaResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ActionGroup::make([
+
+                    Tables\Actions\Action::make('imprimir')
+                        ->visible(fn(Cita $record) => $record->rayosxes->count() !== 0)
+                        ->hiddenLabel()
+                        ->label('Imprimir Orden Rayos X')
+                        ->tooltip('Imprimir Orden Rayos X')
+                        ->icon('heroicon-o-printer')
+                        ->url(fn(Cita $record): string => route('cita-pdf', [
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab(),
+                ])
+                    ->icon('heroicon-o-printer')
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
