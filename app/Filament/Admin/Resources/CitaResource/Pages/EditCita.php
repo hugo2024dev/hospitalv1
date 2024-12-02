@@ -194,6 +194,29 @@ class EditCita extends EditRecord
                                         ])
 
                                 ])->columns(1)->columnSpan(1),
+                            Fieldset::make('Patologia Clinica')
+                                ->schema([
+                                    TableRepeater::make('citaExamens')
+                                        ->hiddenLabel()
+                                        ->addActionLabel('Añadir Examen')
+                                        ->relationship('citaExamens')
+                                        ->headers([
+                                            Header::make('examen')->markAsRequired(),
+                                            Header::make('cantidad')->width('40px'),
+                                        ])
+                                        ->schema([
+                                            Select::make('examen_id')
+                                                ->relationship('examen', 'nombre')
+                                                ->searchable(['nombre'])
+                                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                                ->required(),
+                                            TextInput::make('cantidad')
+                                                ->required()
+                                                ->numeric()
+                                                ->maxValue(99),
+                                        ])
+
+                                ])->columns(1)->columnSpan(1),
                         ])->columns(2),
                 ])
         ])->columns(1);

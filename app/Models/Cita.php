@@ -92,6 +92,15 @@ class Cita extends Model
             ->using(CitaEcografia::class);
     }
 
+    public function examens()
+    {
+        return $this->belongsToMany(Examen::class)
+            ->withPivot([
+                'cantidad',
+            ])
+            ->using(CitaExamen::class);
+    }
+
     //Filament relationship para el repeater
     public function citaDiagnosticos()
     {
@@ -116,6 +125,11 @@ class Cita extends Model
     public function citaEcografias()
     {
         return $this->hasMany(CitaEcografia::class);
+    }
+
+    public function citaExamens()
+    {
+        return $this->hasMany(CitaExamen::class);
     }
 
     public function scopeAsignados(Builder $query): void

@@ -98,6 +98,15 @@ class CitaResource extends Resource
                             'id' => $record->id
                         ]))
                         ->openUrlInNewTab(),
+                    Tables\Actions\Action::make('imprimir-examen')
+                        ->visible(fn(Cita $record) => $record->examens->count() !== 0)
+                        ->hiddenLabel()
+                        ->label('Imprimir Orden examen')
+                        // ->icon('heroicon-o-printer')
+                        ->url(fn(Cita $record): string => route('cita-examen', [
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab(),
                 ])
                     ->icon('heroicon-o-printer')
             ])
