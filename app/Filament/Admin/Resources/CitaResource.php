@@ -54,7 +54,12 @@ class CitaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn(Builder $query) => $query->asignados())
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->asignados();
+                if (!auth()->user()->isSuperAdmin()) {
+                    $query->owned();
+                }
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('numero_orden')
                     ->numeric()

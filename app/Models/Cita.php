@@ -136,4 +136,12 @@ class Cita extends Model
     {
         $query->where('estado', new Asignado($this));
     }
+
+    public function scopeOwned(Builder $query): void
+    {
+        $query->whereHas('programacion', function ($q) {
+            $q->where('empleado_id', auth()->user()->empleado_id);
+        });
+    }
+
 }
