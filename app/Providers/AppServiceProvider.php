@@ -25,14 +25,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Table::configureUsing(function (Table $table): void {
-            $table
-                ->emptyStateHeading('No data yet')
-                ->striped()
-                ->defaultPaginationPageOption(10)
-                ->paginated([10, 25, 50, 100])
-                ->extremePaginationLinks()
-                ->defaultSort('created_at', 'desc');
-        });
     }
 }

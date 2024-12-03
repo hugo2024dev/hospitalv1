@@ -23,7 +23,13 @@ class PacienteResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('tipo_documento_id')
+                    ->relationship('tipoDocumento', 'nombre')
+                    ->required(),
                 Forms\Components\TextInput::make('numero_documento')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('historia_clinica')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('nombres')
@@ -37,9 +43,9 @@ class PacienteResource extends Resource
                     ->maxLength(100),
                 Forms\Components\DatePicker::make('fecha_nacimiento')
                     ->required(),
-                Forms\Components\TextInput::make('sexo')
+                Forms\Components\Select::make('sexo')
                     ->required()
-                    ->maxLength(1),
+                    ->options(['M' => 'Masculino', 'F' => 'Femenino']),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(100)
@@ -51,9 +57,6 @@ class PacienteResource extends Resource
                 Forms\Components\TextInput::make('direccion')
                     ->maxLength(255)
                     ->default(null),
-                Forms\Components\Select::make('tipo_documento_id')
-                    ->relationship('tipoDocumento', 'nombre')
-                    ->required()
             ]);
     }
 

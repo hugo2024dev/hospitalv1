@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
             $table->integer('numero_documento')->unsigned()->unique();
+            $table->integer('historia_clinica')->unsigned()->unique();
             $table->string('nombres', 100);
             $table->string('apellido_paterno', 100);
             $table->string('apellido_materno', 100);
