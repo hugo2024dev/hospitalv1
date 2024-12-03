@@ -14,6 +14,6 @@ class Diagnostico extends Model
 
     public function citas()
     {
-        return $this->belongsToMany(Cita::class)->withPivot(['tipo_diagnostico']);
+        return $this->belongsToMany(Cita::class)->withPivot(['tipo']);
     }
 }

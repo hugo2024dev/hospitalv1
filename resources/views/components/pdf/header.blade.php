@@ -4,12 +4,12 @@
     .pageHeader {
         -webkit-print-color-adjust: exact;
         font-family: system-ui;
-        font-size: 6pt;
+        font-size: 10px;
         width: 100%;
         /* display: flex; */
         /* justify-content: space-between; */
         /* align-items: center; */
-        margin: 0 5px 0 5px;
+        margin: 0 30px 0 30px;
         /* position: relative; */
         /* padding: 10px; */
         /* background-color: red; */
@@ -24,23 +24,26 @@
 
     .header-item {
         display: flex;
-        align-items: center;
-        margin-left: 10rem
+        text-align: center;
+        /* margin-left: 10rem */
     }
 </style>
 <header class="pageHeader">
     <table style="width: 100%">
         <tbody>
             <tr>
-                <td>
-                    <div class="header-item">
-                        <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
-                    </div>
+                <td style="width: 30%; text-align: left">
+                    <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
                 </td>
-                <td style="width: 350px">
+                <td style="width: 40%; text-align: center">
+                    <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
+                        <li>San Juan Bautista de Huaral</li>
+                        <li>RUC: 32134654684</li>
+                        <li>CALLE TACNA N° 120 - HUARAL</li>
+                    </ul>
                 </td>
-                <td class="text-left">
-                    <span style="font-size: 15px"> Hospital ...</span>
+                <td style="text-align: right">
+                    <span> Hospital ...</span>
                 </td>
             </tr>
         </tbody>

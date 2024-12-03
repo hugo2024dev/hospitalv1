@@ -62,7 +62,7 @@ class Cita extends Model
     public function diagnosticos()
     {
         return $this->belongsToMany(Diagnostico::class)
-            ->withPivot(['tipo_diagnostico'])
+            ->withPivot(['tipo'])
             ->using(CitaDiagnostico::class);
     }
 

@@ -46,3 +46,12 @@ Route::get('/pdf/examen/{id}', function (string $id) {
         ->marginTop('100px')
         ->handle(ReportType::EXAMEN, $cita);
 })->middleware(['auth'])->name('cita-examen');
+
+Route::get('/pdf/receta/{id}', function (string $id) {
+    $cita = Cita::findOrFail($id);
+    return GenerarPdf::make()
+        ->filename('receta')
+        // ->header('components.pdf.header-cita-testigo')
+        ->marginTop('100px')
+        ->handle(ReportType::RECETA, $cita);
+})->middleware(['auth'])->name('cita-receta');
