@@ -8,6 +8,7 @@ use App\Models\Consultorio;
 use App\Models\Empleado;
 use App\Models\Especialidad;
 use App\Models\Programacion;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
@@ -17,6 +18,7 @@ use Livewire\Attributes\On;
 
 class GestionarProgramaciones extends Page
 {
+    use HasPageShield;
     protected static ?string $navigationIcon = 'tabler-calendar-due';
 
     protected static string $view = 'filament.admin.pages.gestionar-programaciones';

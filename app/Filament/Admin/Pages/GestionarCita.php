@@ -8,6 +8,8 @@ use App\Models\Especialidad;
 use App\Models\Paciente;
 use App\Models\Programacion;
 use App\States\Cita\Asignado;
+use App\States\Cita\Nuevo;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -24,6 +26,7 @@ use Livewire\Attributes\On;
 class GestionarCita extends Page implements HasTable
 {
     use InteractsWithTable;
+    use HasPageShield;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.admin.pages.gestionar-cita';
@@ -85,6 +88,18 @@ class GestionarCita extends Page implements HasTable
         $this->dispatch('open-modal', id: 'asignar-paciente');
         // $this->programacion = Programacion::findOrFail($id);
         $this->citaSeleccionada = Cita::findOrFail($id);
+
+    }
+
+    function cancelarCita($id): void
+    {
+        // $this->dispatch('open-modal', id: 'asignar-paciente');
+        $cita = Cita::findOrFail($id);
+        $cita->estado->transitionTo(Nuevo::class);
+        Notification::make()
+            ->title('Cita liberada correctamente.')
+            ->success()
+            ->send();
 
     }
 

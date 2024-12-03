@@ -20,6 +20,7 @@ class PacienteFactory extends Factory
     {
         return [
             'numero_documento' => fake()->unique()->randomNumber(8),
+            'historia_clinica' => fake()->unique()->randomNumber(5),
             'nombres' => fake()->firstName . ' ' . fake()->firstName,
             'apellido_paterno' => fake()->lastName,
             'apellido_materno' => fake()->lastName,
