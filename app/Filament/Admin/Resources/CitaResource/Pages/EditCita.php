@@ -12,6 +12,7 @@ use Awcodes\TableRepeater\Header;
 use Filament\Actions;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
@@ -57,12 +58,13 @@ class EditCita extends EditRecord
                         ]),
                     Tabs\Tab::make('Diagnósticos')
                         ->schema([
-                            Fieldset::make('Diagnosticos')
+                            Section::make('Diagnosticos')
                                 ->schema([
                                     TableRepeater::make('citaDiagnosticos')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir diagnostico')
                                         ->relationship('citaDiagnosticos')
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('tipo')->markAsRequired()->width('150px'),
                                             Header::make('diagnostico')->markAsRequired(),
@@ -86,7 +88,8 @@ class EditCita extends EditRecord
                                     TableRepeater::make('citaProcedimientos')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir procedimiento')
-                                        ->relationship('citaProcedimientos')
+                                        ->relationship()
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('procedimiento')->markAsRequired(),
                                         ])
@@ -108,7 +111,8 @@ class EditCita extends EditRecord
                                     TableRepeater::make('citaMedicamentos')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir medicamento')
-                                        ->relationship('citaMedicamentos')
+                                        ->relationship()
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('medicamento')->markAsRequired(),
                                             Header::make('cantidad')->markAsRequired()->width('100px'),
@@ -153,7 +157,8 @@ class EditCita extends EditRecord
                                     TableRepeater::make('citaRayosxes')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir Rayos X')
-                                        ->relationship('citaRayosxes')
+                                        ->relationship()
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('Rayos X')->markAsRequired(),
                                             Header::make('cantidad')->width('40px'),
@@ -176,7 +181,8 @@ class EditCita extends EditRecord
                                     TableRepeater::make('citaEcografias')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir Ecografia')
-                                        ->relationship('citaEcografias')
+                                        ->relationship()
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('Ecografia')->markAsRequired(),
                                             Header::make('cantidad')->width('40px'),
@@ -199,7 +205,8 @@ class EditCita extends EditRecord
                                     TableRepeater::make('citaExamens')
                                         ->hiddenLabel()
                                         ->addActionLabel('Añadir Examen')
-                                        ->relationship('citaExamens')
+                                        ->relationship()
+                                        ->orderColumn('id')
                                         ->headers([
                                             Header::make('examen')->markAsRequired(),
                                             Header::make('cantidad')->width('40px'),
