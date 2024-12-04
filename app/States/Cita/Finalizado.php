@@ -7,7 +7,7 @@ class Finalizado extends CitaState
 
     public function color(): string
     {
-        return 'primary';
+        return 'success';
     }
 
     public function display(): string

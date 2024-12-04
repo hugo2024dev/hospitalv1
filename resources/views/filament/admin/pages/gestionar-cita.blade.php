@@ -46,7 +46,7 @@
                                                             'flex flex-row shadow-md rounded-lg gap-4 items-center justify-center p-2',
                                                             'bg-yellow-300' => $cita->estado->color() === 'warning',
                                                             'bg-gray-300' => $cita->estado->color() === 'gray',
-                                                            'bg-green-300' => $cita->estado->color() === 'green',
+                                                            'bg-green-300' => $cita->estado->color() === 'success',
                                                         ])>
                                                             <p class="font-semibold text-black">
                                                                 N° {{ $cita->numero_orden }}
@@ -73,7 +73,9 @@
                                                                         tooltip="Cancelar cita"
                                                                         wire:click="cancelarCita({{ $cita->id }})"
                                                                         @class([
-                                                                            'hidden' => !$cita->paciente_id,
+                                                                            'hidden' =>
+                                                                                !$cita->paciente_id ||
+                                                                                $cita->estado->equals(App\States\Cita\Finalizado::class),
                                                                         ])>
 
                                                                     </x-filament::icon-button>
@@ -121,7 +123,7 @@
                                                             'flex flex-row shadow-md rounded-lg gap-4 items-center justify-center p-2',
                                                             'bg-yellow-300' => $cita->estado->color() === 'warning',
                                                             'bg-gray-300' => $cita->estado->color() === 'gray',
-                                                            'bg-green-300' => $cita->estado->color() === 'green',
+                                                            'bg-green-300' => $cita->estado->color() === 'success',
                                                         ])>
                                                             <p class="font-semibold text-black">
                                                                 N° {{ $cita->numero_orden }}
@@ -148,7 +150,9 @@
                                                                         tooltip="Cancelar cita"
                                                                         wire:click="cancelarCita({{ $cita->id }})"
                                                                         @class([
-                                                                            'hidden' => !$cita->paciente_id,
+                                                                            'hidden' =>
+                                                                                !$cita->paciente_id ||
+                                                                                $cita->estado->equals(App\States\Cita\Finalizado::class),
                                                                         ])>
 
                                                                     </x-filament::icon-button>
