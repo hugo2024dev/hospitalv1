@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\DTO\AsistenciaData;
 use App\Enums\Setting\ReportType;
+use App\Settings\GeneralSettings;
 use Gotenberg\Exceptions\GotenbergApiErrored;
 use Gotenberg\Gotenberg;
 use Gotenberg\Stream;
@@ -21,12 +22,18 @@ class GenerarPdf
     private string $marginBottom;
     private string $marginLeft;
     private string $marginRight;
+    private GeneralSettings $generalSettings;
+
+    public function __construct(GeneralSettings $generalSettings)
+    {
+        $this->generalSettings = $generalSettings;
+    }
 
     public function handle(ReportType $tipoReporte, object $data)
     {
         $FILENAME = $this->getFilename() . '_' . now()->format('d_m_Y') . '.pdf';
         $html = view('components.layouts.pdf', ['current' => $tipoReporte->value, 'datos' => $data, 'filename' => $FILENAME])->render();
-        $request = Gotenberg::chromium('http://host.docker.internal:3000')
+        $request = Gotenberg::chromium(env('GOTENBERG_URL'))
             ->pdf()
             ->header(Stream::string('header.html', $this->getHeader()))
             ->footer(Stream::string('footer.html', $this->footer()))
@@ -144,7 +151,7 @@ class GenerarPdf
 
     private function logo(): string
     {
-        $logoPath = public_path('images/logo.png'); // Ruta a la imagen en el sistema de archivos
+        $logoPath = storage_path("app/public/{$this->generalSettings->brand_logo}"); // Ruta a la imagen en el sistema de archivos
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoBase64 = "data:image/jpg;base64,$logoData";
         return $logoBase64;

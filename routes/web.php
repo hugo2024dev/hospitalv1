@@ -4,7 +4,7 @@ use App\Actions\GenerarPdf;
 use App\Enums\Setting\ReportType;
 use App\Models\Cita;
 use Illuminate\Support\Facades\Route;
-
+use Filament\Notifications\Notification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,10 +55,3 @@ Route::get('/pdf/receta/{id}', function (string $id) {
         ->marginTop('100px')
         ->handle(ReportType::RECETA, $cita);
 })->middleware(['auth'])->name('cita-receta');
-
-Route::get('/test/{id}', function (string $id) {
-    $cita = Cita::findOrFail($id);
-    dd($cita->medicamentos()->exists());
-    // $cita->loadMissing('medicamentos_count');
-    return $cita->diagnosticos()->exists();
-})->middleware(['auth']);
