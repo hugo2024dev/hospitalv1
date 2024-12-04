@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->tinyInteger('cantidad_citas')->unsigned();
             $table->tinyInteger('duracion_cita')->unsigned();
-            $table->date('fecha')->unique();
+            $table->date('fecha');
             $table->string('turno', 20);
 
             $table->foreignId('empleado_id')->constrained();
