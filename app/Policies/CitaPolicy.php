@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Cita;
+use App\States\Cita\Finalizado;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CitaPolicy
@@ -39,6 +40,12 @@ class CitaPolicy
      */
     public function update(User $user, Cita $cita): bool
     {
+        if (!$cita->triaje) {
+            return false;
+        }
+        if ($cita->estado->equals(Finalizado::class)) {
+            return false;
+        }
         return $user->can('update_cita');
     }
 

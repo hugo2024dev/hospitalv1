@@ -18,6 +18,7 @@ abstract class CitaState extends State
             ->default(Nuevo::class)
             ->allowTransition(Nuevo::class, Asignado::class, NuevoToAsignado::class)
             ->allowTransition(Asignado::class, Nuevo::class, AsignadoToNuevo::class)
+            ->allowTransition(Asignado::class, Finalizado::class, AsignadoToFinalizado::class)
         ;
     }
 

@@ -7,9 +7,11 @@ use App\Filament\Admin\Resources\CitaResource;
 use App\Models\Diagnostico;
 use App\Models\Medicamento;
 use App\Models\Procedimiento;
+use App\States\Cita\Finalizado;
 use Awcodes\TableRepeater\Components\TableRepeater;
 use Awcodes\TableRepeater\Header;
 use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -18,6 +20,7 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 
 class EditCita extends EditRecord
@@ -27,7 +30,17 @@ class EditCita extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            // Actions\DeleteAction::make(),
+            Action::make('finalizar_atencion')
+                ->color('warning')
+                ->requiresConfirmation()
+                ->action(function () {
+                    $this->getRecord()->estado->transitionTo(Finalizado::class);
+                    $this->redirect(CitaResource::getUrl());
+                    Notification::make()
+                        ->title('Atencion finalizada correctamente')
+                        ->success()
+                        ->send();
+                }),
         ];
     }
 
