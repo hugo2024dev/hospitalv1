@@ -56,9 +56,9 @@ class CitaResource extends Resource
         return $table
             ->modifyQueryUsing(function (Builder $query) {
                 $query->asignados();
-                // if (!auth()->user()->isSuperAdmin()) {
-                //     $query->owned();
-                // }
+                if (!auth()->user()->isSuperAdmin()) {
+                    $query->owned();
+                }
             })
             ->columns([
                 Tables\Columns\TextColumn::make('numero_orden')

@@ -3,11 +3,13 @@
 namespace App\Filament\Admin\Pages;
 
 use App\Models\Cita;
+use App\States\Cita\Asignado;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -25,8 +27,7 @@ class Topico extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Cita::query())
-            ->modifyQueryUsing(fn(Builder $query) => $query->asignados())
+            ->query(Cita::query()->whereState('estado', Asignado::class))
             ->columns([
                 Tables\Columns\TextColumn::make('numero_orden')
                     ->numeric()
@@ -42,6 +43,10 @@ class Topico extends Page implements HasTable
                     ->badge()
                     ->color(fn(Cita $record) => $record->estado->color())
                     ->searchable(),
+                IconColumn::make('hora_fin')
+                    ->label('¿Triaje?')
+                    ->color(fn(Cita $record): string => isset ($record->triaje) ? 'success' : 'danger')
+                    ->icon(fn(Cita $record): string => isset ($record->triaje) ? 'tabler-check' : 'tabler-x'),
             ])
             ->filters([
                 //

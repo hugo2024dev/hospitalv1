@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\States\Cita\Asignado;
 use App\States\Cita\CitaState;
+use App\States\Cita\Finalizado;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -134,7 +135,7 @@ class Cita extends Model
 
     public function scopeAsignados(Builder $query): void
     {
-        $query->where('estado', new Asignado($this));
+        $query->whereState('estado', [Asignado::class, Finalizado::class]);
     }
 
     public function scopeOwned(Builder $query): void
