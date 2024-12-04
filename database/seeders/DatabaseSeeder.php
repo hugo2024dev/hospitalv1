@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             PacientesSeeder::class,
         ]);
 
-        Artisan::call('shield:generate --all');
+        Artisan::call('shield:generate --all --ignore-existing-policies');
         $this->call([
             GiveBasicPermissionsSeeder::class,
         ]);

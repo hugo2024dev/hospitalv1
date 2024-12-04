@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UsersTableSeeder extends Seeder
 
         // Superadmin user
         $sid = Str::uuid();
-        DB::table('users')->insert([
+        $user = User::create([
             'id' => $sid,
             'username' => 'superadmin',
             // 'firstname' => 'Super',
@@ -30,31 +31,7 @@ class UsersTableSeeder extends Seeder
             'empleado_id' => '1',
         ]);
 
-        // Bind superadmin user to FilamentShield
-        Artisan::call('shield:super-admin', ['--user' => $sid]);
-
-        // $roles = DB::table('roles')->whereNot('name', 'super_admin')->get();
-        // foreach ($roles as $role) {
-        //     for ($i = 0; $i < 10; $i++) {
-        //         $userId = Str::uuid();
-        //         DB::table('users')->insert([
-        //             'id' => $userId,
-        //             'username' => $faker->unique()->userName,
-        //             'firstname' => $faker->firstName,
-        //             'lastname' => $faker->lastName,
-        //             'email' => $faker->unique()->safeEmail,
-        //             'email_verified_at' => now(),
-        //             'password' => Hash::make('password'),
-        //             'created_at' => now(),
-        //             'updated_at' => now(),
-        //         ]);
-        //         DB::table('model_has_roles')->insert([
-        //             'role_id' => $role->id,
-        //             'model_type' => 'App\Models\User',
-        //             'model_id' => $userId,
-        //         ]);
-        //     }
-        // }
+        $user->assignRole('admin');
     }
 }
 
