@@ -15,6 +15,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Table;
+use Livewire\Attributes\On;
 
 class Historial extends Page implements HasTable
 {
@@ -24,11 +25,19 @@ class Historial extends Page implements HasTable
 
     protected static string $view = 'filament.admin.pages.historial';
 
-    private $paciente;
+    public $paciente;
+    public $citaId;
+    public array $documentos = [];
 
     function getHeaderActions(): array
     {
         return [
+            \Filament\Actions\Action::make('buscarPaciente')
+                ->icon('tabler-search')
+                ->disabled(fn() => !!$this->paciente)
+                ->action(function () {
+                    $this->dispatch('open-modal', id: 'historial-buscar-paciente');
+                }),
             \Filament\Actions\Action::make('reset')
                 ->icon('tabler-refresh')
                 ->color('warning')
@@ -43,16 +52,9 @@ class Historial extends Page implements HasTable
     {
         return $form->schema([
             Section::make('Datos del paciente')
-                ->description('gsfsdf')
+                ->description(fn() => $this->paciente ? $this->paciente->nombre_completo : 'Datos generales.')
                 ->collapsible()
                 ->compact()
-                ->headerActions([
-                    Action::make('buscarPaciente')
-                        ->icon('tabler-search')
-                        ->action(function () {
-                            $this->dispatch('open-modal', id: 'historial-buscar-paciente');
-                        })
-                ])
                 ->schema([
                     ViewField::make('paciente-detalle')
                         ->view('components.paciente-detalle')
@@ -99,5 +101,12 @@ class Historial extends Page implements HasTable
             ->bulkActions([
                 // ...
             ]);
+    }
+
+    #[On('historial-cita-seleccionada')]
+    function onCitaSeleccionada(int $data, array $documentos): void
+    {
+        $this->citaId = $data;
+        $this->documentos = $documentos;
     }
 }

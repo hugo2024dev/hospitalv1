@@ -144,4 +144,37 @@ class Cita extends Model
         });
     }
 
+    public function getDocumentosAttribute()
+    {
+        $data = [];
+        if ($this->rayosxes()->exists()) {
+            $data['rayosx'] = [
+                'url' => 'cita-rayosx',
+                'label' => 'Rayosx',
+            ];
+        }
+        if ($this->medicamentos()->exists()) {
+            $data['receta'] = [
+                'url' => 'cita-receta',
+                'label' => 'Receta',
+            ];
+        }
+
+        if ($this->ecografias()->exists()) {
+            $data['ecografia'] = [
+                'url' => 'cita-ecografia',
+                'label' => 'Ecografia',
+            ];
+        }
+
+        if ($this->examens()->exists()) {
+            $data['examen'] = [
+                'url' => 'cita-examen',
+                'label' => 'examen',
+            ];
+        }
+
+        return $data;
+    }
+
 }

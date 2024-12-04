@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Cita;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -19,16 +20,17 @@ class CitaTable extends Component implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    private $pacienteId;
+    public int $pacienteId;
+
+    public function mount(int $pacienteId): void
+    {
+        $this->pacienteId = $pacienteId;
+    }
     public function table(Table $table): Table
     {
         return $table
-            ->query(Cita::query())
-            ->modifyQueryUsing(function (Builder $query) {
-                $query->whereRaw('paciente_id = ?', [$this->pacienteId]);
-                // if (isset($this->pacienteId)) {
-                // }
-            })
+            ->query(Cita::query()->where('paciente_id', $this->pacienteId))
+            ->defaultPaginationPageOption(5)
             ->columns([
                 TextColumn::make('programacion.fecha')
                     ->label('Fecha ingreso')
@@ -62,7 +64,18 @@ class CitaTable extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                // ...
+                \Filament\Tables\Actions\Action::make('agg')
+                    ->hiddenLabel()
+                    ->icon('tabler-circle-check')
+                    ->color('warning')
+                    // ->requiresConfirmation()
+                    ->action(function (Cita $record) {
+                        $this->dispatch('historial-cita-seleccionada', data: $record->id, documentos: $record->documentos);
+                        Notification::make()
+                            ->title('Cita seleccionada correctamente')
+                            ->success()
+                            ->send();
+                    })
             ])
             ->bulkActions([
                 // ...
@@ -72,12 +85,5 @@ class CitaTable extends Component implements HasForms, HasTable
     public function render()
     {
         return view('livewire.cita-table');
-    }
-
-    #[On('historial-paciente-seleccionado')]
-    function onPacienteSeleccionado(array $data): void
-    {
-        empty($data) ? $this->pacienteId = null : $this->pacienteId = $data['id'];
-
     }
 }
