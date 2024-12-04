@@ -112,6 +112,15 @@ class CitaResource extends Resource
                             'id' => $record->id
                         ]))
                         ->openUrlInNewTab(),
+                    Tables\Actions\Action::make('imprimir-receta')
+                        ->visible(fn(Cita $record) => $record->medicamentos->count() !== 0)
+                        ->hiddenLabel()
+                        ->label('Imprimir Receta')
+                        // ->icon('heroicon-o-printer')
+                        ->url(fn(Cita $record): string => route('cita-receta', [
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab(),
                 ])
                     ->icon('heroicon-o-printer')
             ])
