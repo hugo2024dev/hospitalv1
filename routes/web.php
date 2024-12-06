@@ -4,7 +4,6 @@ use App\Actions\GenerarPdf;
 use App\Enums\Setting\ReportType;
 use App\Models\Cita;
 use Illuminate\Support\Facades\Route;
-use Filament\Notifications\Notification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
